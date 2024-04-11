@@ -1,0 +1,73 @@
+I have created a basic spring boot application with no api endpoint and after the application is up, I loaded the application url on its port, when done that, I can see these appllication logs
+
+
+
+o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+
+o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+
+o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+
+
+
+-> When we add the spring boot actuator dependency to the application, it exposes these two end points
+
+dependecy : 
+
+gradle
+------
+implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+
+maven
+---------
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+endpoints : actuator/health
+
+            actuator
+            
+So if we print the application context , we should new RESTful endpoints, these RESTful endpoints will be added by the the spring-boot-actuator dependency we have added. The endpoints are
+
+management services provided by the spring boot. Some of the beans are 
+
+management.endpoint.configprops-org.springframework.boot.actuate.autoconfigure.context.properties.ConfigurationPropertiesReportEndpointProperties
+management.endpoint.env-org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointProperties
+management.endpoint.health-org.springframework.boot.actuate.autoconfigure.health.HealthEndpointProperties
+management.endpoint.logfile-org.springframework.boot.actuate.autoconfigure.logging.LogFileWebEndpointProperties
+management.endpoints.jmx-org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointProperties
+management.endpoints.web-org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties
+management.endpoints.web.cors-org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties
+management.health.diskspace-org.springframework.boot.actuate.autoconfigure.system.DiskSpaceHealthIndicatorProperties
+management.info-org.springframework.boot.actuate.autoconfigure.info.InfoContributorProperties
+management.metrics-org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties
+management.metrics.export.simple-org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties
+management.server-org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties
+            
+-> Example of a curl command
+
+curl http://localhost:8080/actuator/health            
+
+-> 
+
+Gradle boot run command - ./gradlew bootRun
+
+Maven boot run command - ./mvnw spring-boot:run
+
+-> thymeleaf dependency 
+
+implementation 'org.thymeleaf:thymeleaf'
+
+
+-> one way to expose the thymeleaf template files is by setting up the templates to the view controller of spring mvc. In this approach the web application will be based on spring MVC. As a result we have to setup spring mvc and add view controllers to expose the templates. To do that, write a class which implements WebMvcConfigurer and override addViewControllers method and add the tempaltes to the registry with a url associated with it.
+
+For this configuration, we have to use the spring boot startter thymeleaf dependency, not the direct thymeleaf dependency
+
+implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+not implementation 'org.thymeleaf:thymeleaf'
+
