@@ -1,0 +1,43 @@
+1) If we add spring boot starter security dependency to our project, it will add basic securities layers to pur project
+
+-> dependency : implementation 'org.springframework.boot:spring-boot-starter-security'
+
+
+-> When we add spring security as dependency, web applications will be secure by default with basic authentication on all HTTP endpoints. The default AuthenticationManger has a single user ( 'user' username and randon password, printed at INFO level when the application starts up)
+
+ex: Using generated security password: 03827b95-adb8-4841-ac10-7171f8ec5bda
+
+
+-> When try to load any endpoint of your application,it will redirect you to a default sign in provided by spring security, and once you complete the login, the credentials will be stored in cookies of the browser, if you are using chrome, open the developer tool and navigate to the application section and over there expand the cookies section, select the which displays your application url, right click and click on clear.
+
+
+-> To add your custom username and password to the default Authentication manager, use these two propeties in the application.properties file
+
+spring.security.user.name=<customUserName>
+spring.security.user.password=<customPassword>
+
+
+
+2) To get @Entity or other model related dependencies, we need to add spring boot starter data jpa dependecy to the project
+
+
+implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.2.4'
+
+not implementation 'org.springframework.data:spring-data-jpa'
+
+
+3) If you have created repository in your application and have not configured a data source, the service will result in failure during start up with the below exception
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+
+4) An repository class should be a interaface which extends JPARepository or a CrudRespository, to the these JPA and crud, we need to give ModelClassName and type of primarykey
+
+ex: JpaRepository<Movie, Integer>
+
+
+To achieve pagination, one can use PagingAndSortingRepository , which provides us two methods findAll(Sort sort) and findAll(Pageble pageble)
+
+
+
+5) 

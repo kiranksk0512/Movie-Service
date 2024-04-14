@@ -1,0 +1,49 @@
+-> A interface can extend another interface
+
+-> When we click on the I icon on a interface, we will also see class which indirectly implments that interface
+
+-> We you called a abstract method of class inside its own class, it will be redirected the method implmention of that abstract method in a different class
+
+
+-> When you create classB by extending classA and if you overide a method called test() of classA in classB.
+
+
+Now if we class a different method of classA using classB object, we will go to the classA method implementation and over there if we call this.test() , we will go to test() method classB not classA,
+since this refers to object of classB since the classB object is used to trigger a different method classA
+
+
+Key points: 
+
+
+When you call a method on an object, the JVM looks at the actual type of the object and invokes the corresponding method implementation, even if the method is called from within another method in the superclass. The key point is that the method implementation that is executed is determined by the runtime type of the object, not the compile-time type of the reference variable. This concept is known as dynamic method dispatch or virtual method invocation.
+
+-> As we know during the service start up all the beans gets initilalized, to check how it internally works
+
+put a break point in one of the beans and put a break point in preInstantiateSingletons() method of DefaultListableBeanFactory class, over here we will be looping through all the beanNams and will be calling  this.getBean(beanName); for each one. From there next it will hit the break point in your bean. As a class annotated with @Component or @Service or @Repository is a bean, during intilization of a class, all the beans in thet gets initialized ( the methods or fields with @Autowired is considered as a bean)
+
+
+-> If you have annotated a method with @Bean, by default the name of the method will be beanName and the return value of the method will be the actual bean
+
+ex:  Here name of the bean is autowiredWebSecurityConfigurersIgnoreParents and content of the bean is the AutowiredWebSecurityConfigurersIgnoreParents object
+
+@Bean
+    public static AutowiredWebSecurityConfigurersIgnoreParents autowiredWebSecurityConfigurersIgnoreParents(ConfigurableListableBeanFactory beanFactory) {
+        return new AutowiredWebSecurityConfigurersIgnoreParents(beanFactory);
+    }
+    
+And every method annotated with @Bean should have a return type, it cannot be void. If it wriiten as void, during service start up, we will a BeanCreationException
+
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'xxx' defined in class path resource [com/app/rrr/ttt/yyy.class]: Invalid factory method 'xxx' on class [com/app/rrr/ttt/yyy.class]: needs to have a non-void return type!
+    
+    
+-> what does @Autowired(required = false) do and what are the use cases of it?
+
+
+-> A class annoatated with @Component or @Service or @Repository are beans and names of the beans will have the same name as class but the first later will be a lowercase
+
+
+bean name of the below will be webMvcConfig
+
+@Component
+public class WebMvcConfig extends WebMvcConfigurationSupport {    

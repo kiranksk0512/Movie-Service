@@ -3,6 +3,7 @@ package com.app.identityhub.controller;
 import com.app.identityhub.model.Movie;
 import com.app.identityhub.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

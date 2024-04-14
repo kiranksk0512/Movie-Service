@@ -1,7 +1,7 @@
 package com.app.identityhub.service;
 
 import com.app.identityhub.model.Movie;
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +27,14 @@ public class MovieService {
     public List<Movie> getMovieList() {
         return movieList;
     }
+
+//    @Autowired (required = false)
+//    public Movie testBean(@Value("#{@testE.getMovieList()}") Movie movie) {
+//        return movie;
+//    }
+//
+//    @Bean
+//    public Movie testE() {
+//        return new Movie();
+//    }
 }
